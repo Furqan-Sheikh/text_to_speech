@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Voice Foundry</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script defer src="{{ url_for('static', filename='app.js') }}"></script>
+  </head>
+  <body>
+    <main class="shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="Voice Foundry home">
+          <span class="brand-mark" aria-hidden="true">◒</span>
+          <span>Voice Foundry</span>
+        </a>
+        <span class="status-pill"><span class="status-dot"></span>Local studio</span>
+      </header>
+
+      <section class="intro">
+        <p class="eyebrow">Neural narration studio</p>
+        <h1>Give your words<br><em>a speaking voice.</em></h1>
+        <p class="lede">Shape a clear, expressive draft in seconds. Your script stays on this machine while the selected neural voice creates the audio.</p>
+      </section>
+
+      <section class="studio" aria-label="Text to speech controls">
+        <div class="script-panel panel">
+          <div class="panel-heading">
+            <div>
+              <p class="section-label">01 / Your script</p>
+              <h2>What should it say?</h2>
+            </div>
+            <label class="import-button" for="file-input">Import .txt<input id="file-input" type="file" accept=".txt,text/plain"></label>
+          </div>
+          <textarea id="script" maxlength="10000" placeholder="Hello how are you?&#10;&#10;Add punctuation for natural pauses..."></textarea>
+          <div class="textarea-footer">
+            <span id="character-count">0 / 10,000</span>
+            <span>Use commas and full stops for rhythm</span>
+          </div>
+        </div>
+
+        <aside class="controls panel">
+          <p class="section-label">02 / Voice direction</p>
+          <div class="custom-voice-box">
+            <div class="custom-voice-heading">
+              <div>
+                <label for="recording">Your voice</label>
+                <p>Upload your recording to create and use a custom voice.</p>
+              </div>
+              <span id="voice-status">Not set</span>
+            </div>
+            <input id="recording" type="file" accept=".wav,.mp3,.m4a,.ogg,.flac,audio/*">
+            <label class="consent-check"><input id="consent" type="checkbox"> I own this voice or have permission to use it.</label>
+            <button id="clone-voice" class="secondary-button" type="button">Create my voice</button>
+          </div>
+          <label for="voice-mode">Voice source</label>
+          <select id="voice-mode">
+            <option value="edge">Neural voices</option>
+            <option value="clone">My custom voice</option>
+          </select>
+
+          <label for="language">Language</label>
+          <select id="language">
+            <option value="urdu">Urdu / Roman Urdu</option>
+            <option value="english">English</option>
+            <option value="hindi">Hindi</option>
+          </select>
+
+          <label for="voice">Voice</label>
+          <select id="voice"></select>
+
+          <label for="speed">Speed preset</label>
+          <select id="speed">
+            <option value="-40">Slow</option>
+            <option value="0" selected>Natural</option>
+            <option value="40">Fast</option>
+            <option value="custom">Custom</option>
+          </select>
+
+          <div class="control-row">
+            <label for="speed-range">Voice speed <output id="speed-value">0%</output></label>
+            <input id="speed-range" type="range" min="-50" max="50" value="0" step="1">
+          </div>
+          <div class="control-row">
+            <label for="pitch">Pitch <output id="pitch-value">0 Hz</output></label>
+            <input id="pitch" type="range" min="-10" max="10" value="0" step="1">
+          </div>
+
+          <button id="generate" class="generate-button" type="button">
+            <span>Generate narration</span><span aria-hidden="true">↗</span>
+          </button>
+          <p class="error" id="error" role="alert"></p>
+        </aside>
+      </section>
+
+      <section class="result panel" id="result" hidden>
+        <div>
+          <p class="section-label">03 / Your output</p>
+          <h2>Ready to listen.</h2>
+          <audio id="audio" controls></audio>
+        </div>
+        <a id="download" class="download-button" download="narration.mp3">Download MP3 <span aria-hidden="true">↓</span></a>
+      </section>
+
+      <footer>
+        <span>Built for transparent synthetic narration.</span>
+        <span>Powered by neural voices</span>
+      </footer>
+    </main>
+  </body>
+</html>
