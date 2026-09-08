@@ -9,10 +9,6 @@ const voices = {
     { id: 'en-US-AndrewMultilingualNeural', name: 'Andrew · Male (US)' },
     { id: 'en-US-AvaMultilingualNeural', name: 'Ava · Female (US)' },
   ],
-  hindi: [
-    { id: 'hi-IN-MadhurNeural', name: 'Madhur · Male' },
-    { id: 'hi-IN-SwaraNeural', name: 'Swara · Female' },
-  ],
 };
 
 const script = document.querySelector('#script');
@@ -103,6 +99,7 @@ generate.addEventListener('click', async () => {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         text: script.value,
+        language: language.value,
         provider: voiceMode.value,
         voice: voice.value,
         rate: getRate(),
@@ -116,6 +113,7 @@ generate.addEventListener('click', async () => {
     const url = URL.createObjectURL(await response.blob());
     audio.src = url;
     download.href = url;
+    download.download = response.headers.get('content-type')?.includes('wav') ? 'narration.wav' : 'narration.mp3';
     result.hidden = false;
     result.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
   } catch (requestError) {
@@ -128,8 +126,8 @@ generate.addEventListener('click', async () => {
 
 cloneVoice.addEventListener('click', async () => {
   error.textContent = '';
-  if (!recording.files[0]) {
-    error.textContent = 'Choose a clean voice recording first.';
+  if (!recording.files.length) {
+    error.textContent = 'Choose at least one clean voice recording first.';
     return;
   }
   if (!consent.checked) {
@@ -140,7 +138,7 @@ cloneVoice.addEventListener('click', async () => {
   cloneVoice.disabled = true;
   cloneVoice.textContent = 'Creating voice...';
   const body = new FormData();
-  body.append('recording', recording.files[0]);
+  [...recording.files].forEach((file) => body.append('recording', file));
   body.append('consent', 'true');
   try {
     const response = await fetch('/api/clone-voice', { method: 'POST', body });

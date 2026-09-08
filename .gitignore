@@ -3,6 +3,7 @@
 __pycache__/
 *.pyc
 .voice_id
+.voice_reference.wav
 logs/
 .gradio/
 *.mp4

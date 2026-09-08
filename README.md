@@ -47,20 +47,11 @@ source .venv/bin/activate
 python app.py
 ```
 
-Then open <http://127.0.0.1:3000>. Select Urdu / Roman Urdu, English, or Hindi; choose a voice; write or import a script; adjust pace and pitch; and download the MP3 result.
+Then open <http://127.0.0.1:3000>. Select Urdu / Roman Urdu or English; choose a voice; write or import a script; adjust pace and pitch; and download the MP3 result.
 
 ### Use your own voice
 
-The studio can create a custom voice from your own recording through ElevenLabs. This requires an ElevenLabs account and API key. Set it only in your terminal, never in frontend code:
-
-```bash
-export ELEVENLABS_API_KEY="your-api-key"
-python app.py
-```
-
-In the studio, upload a clean recording of the consenting speaker, confirm ownership or permission, click **Create my voice**, select **My custom voice**, and generate the narration. Use a quiet recording with one speaker and clear Urdu/English speech. Do not upload another person’s voice without their explicit permission. Custom voice cloning is optional; the built-in neural voices still work without an API key.
-
-Instant Voice Cloning is a paid ElevenLabs feature. If the app reports that the subscription does not include it, the API key is valid but the current plan cannot create a clone; upgrade the plan or keep using the built-in voices.
+The studio uses local open-source models and does not require an API key. Upload one or more clean MP3, WAV, or MP4 recordings of the consenting speaker, confirm ownership or permission, click **Create my voice**, select **My custom voice**, choose English or Urdu, and generate the narration. MP4/MOV uploads are converted to mono WAV locally. English uses Chatterbox reference conditioning; Urdu uses the MMS Urdu base model followed by local Chatterbox voice conversion. Use a quiet 10–30 second recording with one speaker and clear speech. Do not upload another person’s voice without their explicit permission.
 
 The web studio is local, but the selected neural voice service must be reachable to generate speech. It is designed for transparent synthetic narration and does not attempt to bypass AI-detection or platform labeling systems.
 

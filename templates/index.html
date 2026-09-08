@@ -20,7 +20,7 @@
       <section class="intro">
         <p class="eyebrow">Neural narration studio</p>
         <h1>Give your words<br><em>a speaking voice.</em></h1>
-        <p class="lede">Shape a clear, expressive draft in seconds. Your script stays on this machine while the selected neural voice creates the audio.</p>
+        <p class="lede">Upload your own consented MP3 voice sample, choose English or Urdu, and turn your text into a personal synthetic narration.</p>
       </section>
 
       <section class="studio" aria-label="Text to speech controls">
@@ -45,11 +45,11 @@
             <div class="custom-voice-heading">
               <div>
                 <label for="recording">Your voice</label>
-                <p>Upload your recording to create and use a custom voice.</p>
+                <p>Upload one or more clear MP3, WAV, or MP4 samples to create and use your custom voice.</p>
               </div>
               <span id="voice-status">Not set</span>
             </div>
-            <input id="recording" type="file" accept=".wav,.mp3,.m4a,.ogg,.flac,audio/*">
+            <input id="recording" type="file" accept=".wav,.mp3,.m4a,.ogg,.flac,.mp4,.mov,audio/*,video/mp4,video/quicktime" multiple>
             <label class="consent-check"><input id="consent" type="checkbox"> I own this voice or have permission to use it.</label>
             <button id="clone-voice" class="secondary-button" type="button">Create my voice</button>
           </div>
@@ -63,7 +63,6 @@
           <select id="language">
             <option value="urdu">Urdu / Roman Urdu</option>
             <option value="english">English</option>
-            <option value="hindi">Hindi</option>
           </select>
 
           <label for="voice">Voice</label>
