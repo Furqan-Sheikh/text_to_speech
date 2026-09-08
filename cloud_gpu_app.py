@@ -16,7 +16,6 @@ import librosa
 import numpy as np
 import soundfile as sf
 import torch
-import torchaudio
 from chatterbox.mtl_tts import ChatterboxMultilingualTTS
 
 
@@ -83,7 +82,8 @@ def generate_speech(text: str, language: str, reference_audio: str, exaggeration
 
     output_path = Path(tempfile.gettempdir()) / "voice_foundry_output.wav"
     model.sr = getattr(model, "sr", 24000)
-    torchaudio.save(str(output_path), wav.cpu(), model.sr)
+    waveform = wav.detach().float().cpu().squeeze().numpy()
+    sf.write(output_path, waveform, model.sr, subtype="PCM_16")
     return str(output_path)
 
 
