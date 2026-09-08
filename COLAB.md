@@ -19,6 +19,9 @@ If the project is only on your computer, upload `cloud_gpu_app.py` and `requirem
 !python cloud_gpu_app.py
 ```
 
+Colab already provides PyTorch. On a local NVIDIA machine, install the CUDA
+build first by following [GPU_SETUP.md](GPU_SETUP.md).
+
 4. Open the generated Gradio public URL.
 5. Upload a clean 10–30 second recording of your own voice, choose Urdu, enter Urdu-script text, and generate audio.
 
@@ -40,6 +43,12 @@ python cloud_gpu_app.py
 ```
 
 Expose the Gradio port or use the printed share URL.
+
+If pip reports that Chatterbox requires an older exact PyTorch version, first
+run the CUDA verification command from `GPU_SETUP.md`. Keep the installed CUDA
+build when `torch.cuda.is_available()` is `True`; the warning is about
+Chatterbox's package metadata. Replace it only if Chatterbox fails during model
+import or generation.
 
 ## Quality notes
 

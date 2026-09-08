@@ -3,5 +3,3 @@ gradio>=5.0.0
 librosa>=0.10.0
 numpy>=1.26.0
 soundfile>=0.12.1
-torch>=2.4.0
-torchaudio>=2.4.0

@@ -18,6 +18,9 @@ source .venv/bin/activate        # Linux/WSL2
 python -m pip install --upgrade pip
 python -m pip install torch torchaudio --index-url https://download.pytorch.org/whl/cu128
 python -m pip install -r requirements-cloud.txt
+
+# Install CUDA-enabled PyTorch separately; requirements-cloud.txt intentionally
+# does not replace it with a CPU build.
 ```
 
 On native Windows PowerShell, activate with:
@@ -37,6 +40,13 @@ The first launch downloads the open-source model and may take time. Start the st
 ```bash
 python cloud_gpu_app.py
 ```
+
+Chatterbox currently declares an older exact PyTorch dependency. On an RTX 5060,
+keep the newer CUDA build if the verification command below reports `True`; pip
+may print a dependency warning, but the model can still run. Do not replace the
+CUDA build with CPU-only PyTorch. If the model fails at import or inference,
+use Python 3.12 and the Chatterbox-compatible PyTorch version in a fresh
+environment instead.
 
 Open the local Gradio URL printed in the terminal. Upload a clean 10–30 second recording of your own voice, select Urdu, enter Urdu-script text, and generate audio.
 

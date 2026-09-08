@@ -25,6 +25,12 @@ LANGUAGES = {
 }
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
+if device != "cuda":
+    raise RuntimeError(
+        "CUDA is unavailable. Install the NVIDIA CUDA PyTorch build and verify "
+        "torch.cuda.is_available() before starting the voice studio."
+    )
+
 model = ChatterboxMultilingualTTS.from_pretrained(device=device)
 
 
