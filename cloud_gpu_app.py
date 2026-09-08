@@ -21,7 +21,6 @@ from chatterbox.mtl_tts import ChatterboxMultilingualTTS
 
 
 LANGUAGES = {
-    "Urdu": "ur",
     "English": "en",
     "Hindi": "hi",
 }
@@ -92,7 +91,8 @@ def build_ui() -> gr.Blocks:
     with gr.Blocks(title="Voice Foundry Cloud Studio") as demo:
         gr.Markdown(
             "# Voice Foundry Cloud Studio\n"
-            "Generate transparent synthetic narration with your own consented reference voice."
+            "Generate transparent synthetic narration with your own consented reference voice. "
+            "Chatterbox currently supports Hindi and English, but not Urdu."
         )
         with gr.Row():
             with gr.Column():
@@ -113,7 +113,8 @@ def build_ui() -> gr.Blocks:
                 generate = gr.Button("Generate narration", variant="primary")
                 output = gr.Audio(label="Generated audio", type="filepath")
         gr.Markdown(
-            "Use a quiet 10–30 second recording with one speaker. Do not upload another person's voice without explicit permission."
+            "Use a quiet 10–30 second recording with one speaker. Do not upload another person's voice without explicit permission. "
+            "For Urdu output, use an Urdu-capable model/provider; selecting Hindi does not guarantee Urdu pronunciation."
         )
         generate.click(generate_speech, [text, language, reference, exaggeration, cfg_weight], output)
     return demo
