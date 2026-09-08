@@ -6,10 +6,12 @@ from a speaker who has explicitly agreed to voice cloning.
 
 from __future__ import annotations
 
+import subprocess
 import tempfile
 from pathlib import Path
 
 import gradio as gr
+import imageio_ffmpeg
 import librosa
 import numpy as np
 import soundfile as sf
@@ -35,7 +37,26 @@ model = ChatterboxMultilingualTTS.from_pretrained(device=device)
 
 
 def prepare_reference(audio_path: str) -> str:
-    audio, sample_rate = librosa.load(audio_path, sr=24000, mono=True)
+    source_path = Path(audio_path)
+    extracted_path = Path(tempfile.gettempdir()) / "voice_reference_extracted.wav"
+    ffmpeg_path = imageio_ffmpeg.get_ffmpeg_exe()
+    subprocess.run(
+        [
+            ffmpeg_path,
+            "-y",
+            "-i",
+            str(source_path),
+            "-vn",
+            "-ac",
+            "1",
+            "-ar",
+            "24000",
+            str(extracted_path),
+        ],
+        check=True,
+        capture_output=True,
+    )
+    audio, sample_rate = librosa.load(extracted_path, sr=24000, mono=True)
     audio = np.asarray(audio, dtype=np.float32)
     peak = np.max(np.abs(audio))
     if peak > 0:
@@ -81,7 +102,11 @@ def build_ui() -> gr.Blocks:
                     placeholder="السلام علیکم، کیسے ہیں؟",
                 )
                 language = gr.Dropdown(list(LANGUAGES), value="Urdu", label="Language")
-                reference = gr.Audio(type="filepath", sources=["upload", "microphone"], label="Your voice reference")
+                reference = gr.File(
+                    type="filepath",
+                    file_types=[".mp4", ".m4a", ".mov", ".wav", ".mp3", ".ogg", ".flac"],
+                    label="Your voice reference (audio or video)",
+                )
             with gr.Column():
                 exaggeration = gr.Slider(0.3, 1.0, value=0.5, step=0.05, label="Expression")
                 cfg_weight = gr.Slider(0.2, 1.0, value=0.5, step=0.05, label="Voice adherence")
