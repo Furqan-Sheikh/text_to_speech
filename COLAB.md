@@ -23,7 +23,7 @@ Colab already provides PyTorch. On a local NVIDIA machine, install the CUDA
 build first by following [GPU_SETUP.md](GPU_SETUP.md).
 
 4. Open the generated Gradio public URL.
-5. Upload a clean 10–30 second recording of your own voice, choose Hindi or English, and generate audio. Chatterbox does not currently support Urdu.
+5. Upload one or more clean 10–30 second recordings of your own voice, choose English or Urdu, and generate audio. Urdu uses the local MMS Urdu base model followed by Chatterbox voice conversion.
 
 ## Your NVIDIA GPU machine
 
@@ -52,4 +52,4 @@ import or generation.
 
 ## Quality notes
 
-Use one speaker, no music or echo, and a consistent microphone distance. Chatterbox supports Hindi and English but not Urdu; for Urdu, use an Urdu-capable model/provider. Expression and voice-adherence sliders affect the tradeoff between natural delivery and similarity. This is synthetic audio and should be disclosed where required; it is not intended to evade platform detection or labeling.
+Use one speaker, no music or echo, and a consistent microphone distance. English uses Chatterbox reference conditioning; Urdu uses the public Arabic-script Urdu MMS model followed by local Chatterbox voice conversion. Expression and voice-adherence sliders affect the tradeoff between natural delivery and similarity. This is synthetic audio and should be disclosed where required; it is not intended to evade platform detection or labeling.
