@@ -101,7 +101,7 @@ def build_ui() -> gr.Blocks:
                     lines=10,
                     placeholder="السلام علیکم، کیسے ہیں؟",
                 )
-                language = gr.Dropdown(list(LANGUAGES), value="Urdu", label="Language")
+                language = gr.Dropdown(list(LANGUAGES), value="English", label="Language")
                 reference = gr.File(
                     type="filepath",
                     file_types=[".mp4", ".m4a", ".mov", ".wav", ".mp3", ".ogg", ".flac"],
