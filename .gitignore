@@ -3,5 +3,6 @@
 __pycache__/
 *.pyc
 .voice_id
+logs/
 welcome*.mp3
 welcome*.txt
