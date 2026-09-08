@@ -48,5 +48,7 @@ Write-Log "Log written to: $LogPath"
 
 if ($Launch) {
     Write-Log "=== Launching app ==="
+    $ErrorActionPreference = "Continue"
     & .\.venv\Scripts\python.exe cloud_gpu_app.py 2>&1 | Tee-Object -FilePath $LogPath -Append
+    Write-Log "App process exited with code: $LASTEXITCODE"
 }

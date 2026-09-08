@@ -4,5 +4,7 @@ __pycache__/
 *.pyc
 .voice_id
 logs/
+.gradio/
+*.mp4
 welcome*.mp3
 welcome*.txt
